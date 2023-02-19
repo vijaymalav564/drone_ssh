@@ -1,0 +1,15 @@
+kind: pipeline
+type: docker
+name: tmate-ssh
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: build
+  image: ghcr.io/vijaymalav564/docker:latest
+  commands:
+  - echo "test"
+  - sudo bash tmate
+  - sudo bash spam.sh

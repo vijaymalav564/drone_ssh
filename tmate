@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Variables
+TMATE_SOCK="/tmp/tmate.sock"
+CONTINUE_FILE="/tmp/continue"
+
+# Downlod tmate and setup it
+if [[ -z "$(which tmate)" ]]; then
+	curl -fsSL git.io/tmate.sh | bash
+fi
+
+# Generate ssh key if needed
+[[ -e ~/.ssh/id_rsa ]] || ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -N ""
+
+
+# Start tmate
+tmate -S ${TMATE_SOCK} new-session -d
+tmate -S ${TMATE_SOCK} wait tmate-ready
+
+# Display
+TMATE_SSH=$(tmate -S ${TMATE_SOCK} display -p '#{tmate_ssh}')
+echo $TMATE_SSH
